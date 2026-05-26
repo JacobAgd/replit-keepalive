@@ -1,0 +1,31 @@
+name: Replit Keep-Alive Monitor
+
+on:
+  schedule:
+    # Runs every 5 minutes, 24/7
+    - cron: "*/5 * * * *"
+  workflow_dispatch: # Allow manual runs from the Actions tab
+
+jobs:
+  ping:
+    name: Ping apps
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run keep-alive checks
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          APPS_JSON: ${{ secrets.APPS_JSON }}
+        run: python keep_alive.py
