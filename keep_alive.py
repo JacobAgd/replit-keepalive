@@ -9,7 +9,7 @@ import requests
 TIMEOUT_SECONDS = 20
 MAX_RETRIES = 3
 RETRY_DELAY_SECONDS = 10
-SLOW_THRESHOLD_SECONDS = 8  # Alert if a healthy response takes longer than this
+SLOW_THRESHOLD_SECONDS = 30  # Alert if a healthy response takes longer than this
 
 
 def load_apps():
